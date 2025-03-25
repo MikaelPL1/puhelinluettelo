@@ -7,15 +7,41 @@ const Statistics = (props) => {
 
   return (
     <div>
-      <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>all {props.all}</p>
-      <p>average {props.avg}</p>
-      <p>positive {props.positive} %</p>
+      <StatisticLine text="good" num={props.good}/>
+      <StatisticLine text="neutral" num={props.neutral}/>
+      <StatisticLine text="bad" num={props.bad}/>
+      <StatisticLine text="all" num={props.all}/>
+      <StatisticLine text="average" num={props.avg}/>
+      <StatisticLine text="positive" num={props.positive} percent="%"/>
     </div>
   );
 };
+
+const Button = (props) => {
+  return <button onClick={props.btn}>{props.text}</button>;
+}
+
+const StatisticLine = (props) => {
+  return(
+    <div>
+      <p>{props.text} {props.num} {props.percent}</p>
+    </div>
+  )
+}
+
+const Title = () => {
+  return (
+    <h1>give feedback</h1>
+  )
+}
+
+const Statst = () => {
+  return (
+    <h1>statistics</h1>
+  )
+}
+
+
 
 const App = () => {
   const [good, setGood] = useState(0);
@@ -24,15 +50,27 @@ const App = () => {
 
   const all = good + neutral + bad;
   const avg = all === 0 ? 0 : (good - bad) / all; 
-  const positive = all === 0 ? 0 : (good * 100) / all; 
+  const positive = all === 0 ? 0 : (good * 100) / all;
+
+  const goodbtn = () => {
+    setGood(good +1)
+  } 
+
+  const neutralbtn = () => {
+    setNeutral(neutral +1)
+  } 
+
+  const badbtn = () => {
+    setBad(bad +1)
+  } 
 
   return (
     <div>
-      <h1>give feedback</h1>
-      <button onClick={() => setGood(good + 1)}>good</button>
-      <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setBad(bad + 1)}>bad</button>
-      <h1>statistics</h1>
+      <Title/>
+      <Button btn={goodbtn} text="good"/>
+      <Button btn={neutralbtn} text="neutral"/>
+      <Button btn={badbtn} text="bad"/>
+      <Statst/>
       <Statistics good={good} neutral={neutral} bad={bad} all={all} avg={avg} positive={positive} 
       />
     </div>
