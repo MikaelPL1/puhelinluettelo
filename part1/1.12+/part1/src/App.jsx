@@ -1,4 +1,8 @@
-import { useState } from 'react'
+import { useState } from 'react';
+
+const Title = (props) => {
+  return <h2>{props.name}</h2>;
+};
 
 const Button = (props) => {
   return (
@@ -7,7 +11,7 @@ const Button = (props) => {
       <button onClick={props.btn}>{props.text}</button>
     </>
   );
-}
+};
 
 const App = () => {
   const anecdotes = [
@@ -17,23 +21,41 @@ const App = () => {
     'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
     'Premature optimization is the root of all evil.',
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
-    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when dianosing patients.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
     'The only way to go fast, is to go well.'
-  ]
-   
-  const [selected, setSelected] = useState(0)
+  ];
+
+  const [votes, aanetl] = useState(Array(anecdotes.length).fill(0));
+  const [selected, setSelected] = useState(0);
+
   const randomizer = () => {
     const indeksi = Math.floor(Math.random() * anecdotes.length);
     setSelected(indeksi);
-  }
+  };
 
+  const votebtn = () => {
+    const newVotes = [...votes];
+    newVotes[selected] += 1;
+    aanetl(newVotes);
+  };
+
+  const maxVotes = Math.max(...votes);
+  const mostVotedIndex = votes.indexOf(maxVotes);
 
   return (
     <div>
-      {anecdotes[selected]}
-      <Button btn={randomizer} text="next anecdote"/>
-    </div>
-  )
-}
+      <Title name="Anecdote of the Day" />
+      <div>{anecdotes[selected]}</div>
+      <p>Has {votes[selected]} votes</p>
 
-export default App
+      <Button btn={votebtn} text="vote" />
+      <Button btn={randomizer} text="next anecdote" />
+
+      <Title name="Anecdote with Most Votes" />
+      <div>{anecdotes[mostVotedIndex]}</div>
+      <p>Has {maxVotes} votes</p>
+    </div>
+  );
+};
+
+export default App;
