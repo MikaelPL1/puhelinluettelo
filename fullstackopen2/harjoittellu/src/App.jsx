@@ -1,33 +1,6 @@
+import Course from './Course';
+
 const App = () => {
-  const Course = ({ course }) => {
-    const all = course.parts.reduce((s, part) => s + part.exercises, 0);
-    return (
-      <div>
-        <h1>{course.name}</h1>
-        <Content parts={course.parts} />
-        <strong>total of exercises {all}</strong>
-      </div>
-    );
-  };
-
-  const Content = ({ parts }) => {
-    return (
-      <div>
-        {parts.map(part => (
-          <Part key={part.id} part={part} />
-        ))}
-      </div>
-    );
-  };
-
-  const Part = ({ part }) => {
-    return (
-      <div>
-        <p>{part.name} {part.exercises}</p>
-      </div>
-    );
-  };
-
   const courses = [
     {
       name: 'Half Stack application development',
@@ -71,7 +44,7 @@ const App = () => {
         }
       ]
     }
-  ]
+  ];
 
   return (
     <div>
@@ -80,7 +53,6 @@ const App = () => {
       ))}
     </div>
   );
-}
+};
 
 export default App;
-
