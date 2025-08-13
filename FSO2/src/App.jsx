@@ -2,13 +2,15 @@ import { useState } from 'react'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', number: '040-1231-1244' },
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+
 
   const addPerson = (event) => {
     event.preventDefault() // estää sivun uudelleenlatauksen
-    const newPerson = { name: newName }
+    const newPerson = { name: newName, number: newNumber }
     const nameExists = persons.some(person => person.name === newName)
     if (nameExists) {
       alert(`${newName} is already added to phonebook`)
@@ -27,6 +29,13 @@ const App = () => {
             value={newName}
             onChange={(event) => setNewName(event.target.value)}
           />
+          <div>
+            number: 
+            <input 
+              value={newNumber}
+              onChange={(event) => setNewNumber(event.target.value)}
+            />
+            </div>
         </div>
         <div>
           <button type="submit">add</button>
@@ -35,7 +44,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       {persons.map((person, index) => (
-        <div key={index}>{person.name}</div>
+        <div key={index}>{person.name} {person.number} </div>
       ))}
     </div>
   )
