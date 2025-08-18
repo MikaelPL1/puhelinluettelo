@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "id": "2",
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523"
-    },
-    {
       "id": "3",
       "name": "Dan Abramov",
       "number": "12-43-234345"
@@ -19,11 +14,6 @@
       "id": "5",
       "name": "123",
       "number": "321"
-    },
-    {
-      "id": "6",
-      "name": "add",
-      "number": "new"
     }
   ]
 }

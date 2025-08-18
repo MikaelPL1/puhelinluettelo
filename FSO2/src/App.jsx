@@ -3,12 +3,15 @@ import personsService from './services/persons';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [filter, setFilter] = useState('');
+  const [message, setMessage] = useState(null);
+  const [type, setType] = useState('success');
 
   useEffect(() => {
     personsService.getAll().then(initialPersons => {
@@ -34,21 +37,28 @@ const App = () => {
       return;
     }
     const newPerson = { id: nextId, name: newName, number: newNumber };
-    personsService.create(newPerson).then(returned => {
-      setPersons(persons.concat({ ...returned, id: String(returned.id) }));
-      setNewName('');
-      setNewNumber('');
-    });
+    personsService.create(newPerson)
+    .then(returned => {
+    setPersons(persons.concat({ ...returned, id: String(returned.id) }));
+    setNewName('');
+    setNewNumber('');
+    setType('success');
+    setMessage(`Added ${returned.name}`);
+    setTimeout(() => setMessage(null), 5000);
+  })
   };
 
   // DELETE PERSONS
   const deletePerson = (id, name) => {
     if (!window.confirm(`Delete ${name} ?`)) return;
     personsService
-      .remove(id)
-      .then(() => {
-        setPersons(persons.filter(p => p.id !== id));
-      })
+    .remove(id)
+    .then(() => {
+      setPersons(persons.filter(p => p.id !== id));
+      setType('error');
+      setMessage(`Removed ${name}`);
+      setTimeout(() => setMessage(null), 5000);
+    })
       .catch(() => {
         setPersons(persons.filter(p => p.id !== id));
       });
@@ -57,6 +67,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={message} type={type} />
 
       <Filter value={filter} onChange={(e) => setFilter(e.target.value)} />
 
