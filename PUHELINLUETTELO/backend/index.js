@@ -17,7 +17,6 @@ let persons = [
   { id: 4, name: 'Mary Poppendieck', number: '39-23-6423122' },
 ]
 
-// Reitit
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
