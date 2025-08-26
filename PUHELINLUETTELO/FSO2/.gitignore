@@ -27,4 +27,4 @@ dist-ssr
 backend/dist
 FSO2/dist
 backend/.env
-
+PUHELINLUETTELO/backend/.env
