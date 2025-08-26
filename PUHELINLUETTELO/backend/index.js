@@ -3,6 +3,9 @@ const app = express()
 const morgan = require('morgan')
 app.use(express.json())
 app.use(express.static('dist'))
+const Person = require('./models/person')
+
+
 
 morgan.token('body', (req) => JSON.stringify(req.body))
 app.use(
@@ -21,8 +24,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/persons', (req, res) => {
-  res.json(persons)
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
+
 
 app.get('/info', (req, res) => {
   const date = new Date()
